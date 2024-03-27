@@ -22,15 +22,28 @@ public class Kniha {
     }
 
     public void setAutor(String autor) {
-        this.autor = autor;
+        if (autor == null) {
+            throw new IllegalArgumentException("Parametr autor je null.");
+        } else if (autor.isEmpty()) {
+            throw new IllegalArgumentException("Parametr autor je prazdny.");
+        } else {
+            this.autor = autor;
+        }
     }
+
 
     public String getNazev() {
         return nazev;
     }
 
     public void setNazev(String nazev) {
-        this.nazev = nazev;
+        if (nazev == null) {
+            throw new IllegalArgumentException("Parametr nazev je null.");
+        } else if (nazev.isEmpty()) {
+            throw new IllegalArgumentException("Parametr nazev je prazdny.");
+        } else {
+            this.nazev = nazev;
+        }
     }
 
     public int getRokVydani() {
@@ -38,7 +51,11 @@ public class Kniha {
     }
 
     public void setRokVydani(int rokVydani) {
-        this.rokVydani = rokVydani;
+        if (rokVydani >= 1440 & rokVydani < 2024) {
+            this.rokVydani = rokVydani;
+        } else {
+            throw new IllegalArgumentException("Parametr rokVydani nesmi byt mensi nez 1440 a vetsi nez 2024.");
+        }
     }
 
     @Override
