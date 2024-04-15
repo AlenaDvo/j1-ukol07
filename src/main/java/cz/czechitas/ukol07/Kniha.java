@@ -1,5 +1,7 @@
 package cz.czechitas.ukol07;
 
+import java.util.Objects;
+
 /**
  * Informace o knihach.
  */
@@ -31,7 +33,6 @@ public class Kniha {
         }
     }
 
-
     public String getNazev() {
         return nazev;
     }
@@ -56,6 +57,19 @@ public class Kniha {
         } else {
             throw new IllegalArgumentException("Parametr rokVydani nesmi byt mensi nez 1440 a vetsi nez 2024.");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Kniha kniha = (Kniha) o;
+        return rokVydani == kniha.rokVydani && Objects.equals(autor, kniha.autor) && Objects.equals(nazev, kniha.nazev);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(autor, nazev, rokVydani);
     }
 
     @Override

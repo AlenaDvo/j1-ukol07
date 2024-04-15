@@ -2,6 +2,8 @@ package cz.czechitas.ukol07;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AplikaceTest {
@@ -10,24 +12,30 @@ class AplikaceTest {
 
 
     @Test
-    void vypisVsechnyKnihy() {
-        assertNotNull(seznamKnih);
+    void setSeznamKnihNeniPrazdny() {
+        assert (!seznamKnih.vypisVsechnyKnihy().isEmpty());
     }
+
 
     @Test
     void vypisKnihyOdAutora() {
-        assertAll(
-                () -> assertEquals(seznamKnih.vypisKnihyOdAutora("Božena Němcová").size(), 4),
-                () -> assertEquals(seznamKnih.vypisKnihyOdAutora("Božena Čechová").size(), 0)
-        );
+        assertEquals(seznamKnih.vypisKnihyOdAutora("Božena Němcová").size(), 4);
+        assertEquals(seznamKnih.vypisKnihyOdAutora("Božena Němcová"), List.of(
+                new Kniha("Božena Němcová", "V zámku a podzámčí", 1856),
+                new Kniha("Božena Němcová", "Divá Bára", 1856),
+                new Kniha("Božena Němcová", "Babička", 1855),
+                new Kniha("Božena Němcová", "Národní báchorky a pověsti", 1845)));
+
+        assertEquals(seznamKnih.vypisKnihyOdAutora("Božena Čechová").size(), 0);
+        assertEquals(seznamKnih.vypisKnihyOdAutora("Božena Čechová"), List.of());
     }
 
     @Test
     void vypisKnihyZRoku() {
-        assertAll(
-                () -> assertEquals(seznamKnih.vypisKnihyZroku(1929).size(), 1),
-                () -> assertEquals(seznamKnih.vypisKnihyZroku(2007).size(), 0)
-        );
+        assertEquals(seznamKnih.vypisKnihyZroku(1929).size(), 1);
+        assertEquals(seznamKnih.vypisKnihyZroku(1929), List.of(new Kniha("Josef Čapek", "Povídání o pejskovi a kočičce", 1929)));
+
+        assertEquals(seznamKnih.vypisKnihyZroku(2007), List.of());
     }
 
     @Test
@@ -52,8 +60,9 @@ class AplikaceTest {
 
     @Test
     void setAutorOK() {
-        kniha.setAutor("Jaroslav Foglar");
-        assertEquals("Jaroslav Foglar", kniha.getAutor());
+        String testovanyAutor = "Jaroslav Foglar";
+        kniha.setAutor(testovanyAutor);
+        assertEquals(testovanyAutor, kniha.getAutor());
     }
 
     @Test
@@ -78,8 +87,9 @@ class AplikaceTest {
 
     @Test
     void setNazevOK() {
-        kniha.setNazev("Hoši od bobří řeky");
-        assertEquals("Hoši od bobří řeky", kniha.getNazev());
+        String testovanyNazev = "Hoši od bobří řeky";
+        kniha.setNazev(testovanyNazev);
+        assertEquals(testovanyNazev, kniha.getNazev());
     }
 
     @Test
@@ -104,8 +114,8 @@ class AplikaceTest {
 
     @Test
     void setRokVydaniOK() {
-        kniha.setRokVydani(1937);
-        assertEquals(1937, kniha.getRokVydani());
+        int testovanyRok = 1937;
+        kniha.setRokVydani(testovanyRok);
+        assertEquals(testovanyRok, kniha.getRokVydani());
     }
-
 }
